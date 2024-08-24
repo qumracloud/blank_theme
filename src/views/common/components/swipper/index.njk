@@ -1,0 +1,275 @@
+{% from "common/components/cards/index.njk" import cardSection1,cardOptions%}
+{%macro Homeswipper(caption="")%}
+
+  <div class="swiper mySwiper overflow-hidden realtive">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide h-screen   relative" style="width:100%">
+        <img class="h-screen w-screen" src="/images/home1.webp">
+        <div class=" bg-black bg-opacity-25 top-0 absolute w-screen h-screen"></div>
+        <div class="caption text-maingold text-5xl font-bold">{{caption}}</div>
+        <!-- Caption for Slide 2 -->
+      </div>
+      <div class="swiper-slide " style="width:100%">
+        <img class="h-screen w-screen" src="/images/home2.webp">
+        <div class=" bg-black bg-opacity-25 top-0 absolute w-screen h-screen"></div>
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination "></div>
+  </div>
+  {%endmacro%}
+
+  {%macro ProductCardswipper()%}
+  <style>
+    .product-swiper {
+      width: 100%;
+      height: 400px;
+      background-color: transparent;
+    }
+
+    .product-swiper .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+    }
+
+    @media (max-width: 760px) {
+      .product-swiper .swiper-button-next {
+        right: 20px;
+        transform: rotate(90deg);
+      }
+
+      .product-swiper .swiper-button-prev {
+        left: 20px;
+        transform: rotate(90deg);
+      }
+      @media (max-width: 767px) {
+        .product-swiper .swiper-button-next, .swiper-button-prev {
+    display: none !important;
+  }
+}
+    }
+  </style>
+  <div class="swiper product-swiper" style="height: 650px;">
+    <div class="swiper-wrapper" style="height: max-content;">
+      {% for i in range(8) %}
+      <div class="swiper-slide" style="height: 500px;">{{cardSection1(category="مجموعة العيد",image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=5)}}</div>
+      {% endfor %}
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+  <script>
+   var swiper = new Swiper('.product-swiper', {
+  slidesPerView: getSlidesPerView(),
+  spaceBetween: 10,
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev'
+  },
+  autoplay: {
+    delay: 2000,
+    disableOnInteraction: false,
+  },
+  breakpoints: {
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 30,
+    },
+    0: {
+      slidesPerView: 1,
+      spaceBetween: 10,
+    }
+  },
+
+});
+
+
+function getSlidesPerView() {
+  if (window.innerWidth <= 760) return 1;
+  if (window.innerWidth <= 1024) return 3; 
+  return 5;
+}
+  </script>
+{%endmacro%}
+
+
+    {%macro opinionsswipper()%}
+      <style>
+        .opinion .swiper {
+          width: 100%;
+          height: 309px;
+          background-color: transparent;
+        }
+
+        .swiper-wrapper {
+          display: flex;
+          align-items: center;
+        }
+
+        .swiper-slide {
+          text-align: center;
+          font-size: 18px;
+          background: #fff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: transparent;
+        }
+
+        @media (max-width: 760px) {
+          .swiper-button-next {
+            right: 20px;
+            transform: rotate(90deg);
+          }
+
+          .swiper-button-prev {
+            left: 20px ;
+            transform: rotate(90deg);
+          }
+        }
+
+        .swiper-pagination {
+          top: 0;
+        }
+        @media (max-width: 767px) {
+        .opinion .swiper-button-next, .swiper-button-prev {
+    display: none !important;
+  }}
+      </style>
+      <div class="opinion">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            {# هنا for loop بدل كل دا  #}
+            <div class="swiper-slide">{{cardOptions(userName="مصلح حربي", discription="من افضل متاجر العود التي تعاملت معها جودة واصالة وسعر في متناول الجميع", place="جدة", rating=5)}}</div>
+            <div class="swiper-slide">{{cardOptions(userName="مصلح حربي", discription="من افضل متاجر العود التي تعاملت معها جودة واصالة وسعر في متناول الجميع", place="جدة", rating=5)}}</div>
+            <div class="swiper-slide">{{cardOptions(userName="مصلح حربي", discription="من افضل متاجر العود التي تعاملت معها جودة واصالة وسعر في متناول الجميع", place="جدة", rating=5)}}</div>
+            <div class="swiper-slide">{{cardOptions(userName="مصلح حربي", discription="من افضل متاجر العود التي تعاملت معها جودة واصالة وسعر في متناول الجميع", place="جدة", rating=5)}}</div>
+            <div class="swiper-slide">{{cardOptions(userName="مصلح حربي", discription="من افضل متاجر العود التي تعاملت معها جودة واصالة وسعر في متناول الجميع", place="جدة", rating=5)}}</div>
+            <div class="swiper-slide">{{cardOptions(userName="مصلح حربي", discription="من افضل متاجر العود التي تعاملت معها جودة واصالة وسعر في متناول الجميع", place="جدة", rating=5)}}</div>
+
+          </div>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+      </div>
+      <script>
+        var swiper = new Swiper('.swiper', {
+          slidesPerView: 3,
+          spaceBetween: 10,
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true
+          },
+          breakpoints: {
+    768: {
+      slidesPerView: 3,
+      spaceBetween: 30,
+    },
+    0: {
+      slidesPerView: 1,
+      spaceBetween: 10,
+    }
+  },
+        });
+
+      
+      </script>
+      {%endmacro%}
+
+
+      {%macro productDetailswipper(caption="")%}
+      <style>
+      .productDetailswipper .swiper {
+        width: 100%;
+        height: 100%;
+      }
+  
+      .productDetailswipper .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      .productDetailswipper .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+  
+      .productDetailswipper .swiper-pagination-bullet {
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 12px;
+        color: #000;
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.2);
+      }
+  
+      .productDetailswipper .swiper-pagination-bullet-active {
+        color: #fff;
+        background: #007aff;
+      }
+    </style>
+    <div class="productDetailswipper">
+       <div class="swiper Detailswipper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img class="h-full" src="/images/home1.webp">
+          </div>
+          <div class="swiper-slide">
+            <img class="h-full" src="/images/home1.webp">
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+       </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script>
+        var swiper = new Swiper(".Detailswipper", {
+          
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+            renderBullet: function (index, className) {
+              return '<span class="' + className + '">' + (index + 1) + "</span>";
+            },
+          },
+        });
+      </script>
+      {%endmacro%}
+    
+
+
+
+      {% macro swiperproduct()%}
+ <div class="swiper-slide">
+   <img src="/images/home1.webp" alt="" srcset="">
+</div>
+ <div class="swiper-slide swiper-slide-duplicate swiper-slide-prev" data-swiper-slide-index="2"
+    style="width: 472px; margin-left: 5px;"><img
+          src="/images/home1.webp
+        alt="https://files.easy-orders.net/1721231001852431123.jpg"
+         class="fasty_product_img aspect-1 h-full w-full rounded-lg object-cover object-center">
+  </div>
+{% endmacro %}

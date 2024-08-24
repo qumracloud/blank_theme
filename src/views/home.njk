@@ -1,0 +1,169 @@
+{% extends "layouts/layout.njk" %}
+{% from "common/components/swipper/index.njk" import Homeswipper,
+ProductCardswipper,
+opinionsswipper %}
+{% from "common/components/headers/index.njk" import titleSection %}
+{% from "common/components/cards/index.njk" import cardSection1,
+cardOptions %}
+{% from "common/components/operations/index.njk" import showMore %}
+
+{% block content %}
+
+    <div class="z-10">
+        {{Homeswipper()}}
+    </div>
+    <div class="flex justify-center main-bg pb-20">
+        <div class="w-10/12">
+
+            {# header section #}
+            <div class=" mt-8">
+                <h2 class="text-brown text-center">هداياكم</h2>
+                {{titleSection(text="هداياكم")}}
+
+            </div>
+            {# <div class="flex justify-center w-full">
+   <code dir="ltr" class="w-20">{{ app|dump(2) }}</code>  
+</div> #}
+            {# header section #}
+
+            {# cart section #}
+            <div class=" mt-10">
+                <div class="grid grid-cols-3 gap-3">
+                    {{cardSection1(category="مجموعة العيد", image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=5)}}
+                    {{cardSection1(category="مجموعة العيد", image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+                    {{cardSection1(category="مجموعة العيد", image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+                    {{cardSection1(category="مجموعة العيد", image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+                    {{cardSection1(category="مجموعة العيد", image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+                    {{cardSection1(category="مجموعة العيد", image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+
+                </div>
+                <div class="text-center mt-8">
+                    <div class="flex item-center justify-center gap-4 transition-all duration-300 group-next cursor-pointer">
+            عرض الكل 
+            <div class=' w-max transition-all duration-300 next-arrow rounded-full flex item-center justify-center p-2'>
+                            <i class="fa-solid fa-arrow-left text-brown"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# cart section #}
+
+            {# header section2 #}
+            <div class=" my-20">
+                {{titleSection(text="العود")}}
+            </div>
+            {# header section #}
+            {# cart section2 #}
+            <div class=" mt-10">
+                {{ProductCardswipper()}}
+                <div class="my-10">
+                    {{showMore(text="عرض الكل")}}
+                </div>
+                {# cart section #}
+
+                {# header section3 #}
+                <div class=" my-20">
+                    {{titleSection(text="أدهان العود")}}
+                </div>
+                {# header section3 #}
+                {# cart section3 #}
+                <div class=" mt-10">
+                    {{ProductCardswipper()}}
+
+                    <div class="my-10">
+                        {{showMore(text="عرض الكل")}}
+                    </div>
+                    {# cart section3 #}
+
+                    {# section4 #}
+                    <div class=" my-10">
+                        {{titleSection(text="اخترنا لك")}}
+                    </div>
+                    <img class="rounded-md" src="/images/chossentoyou.webp" >
+                    {# section4 #}
+
+                    {# header section4 #}
+                    <div class=" mb-20  mt-4">
+                        {{titleSection(text="نوادر العود")}}
+                    </div>
+                    {# header section4 #}
+                    {# cart section4 #}
+                    <div class=" mt-10">
+                        {{ProductCardswipper()}}
+
+                        <div class="mt-20 mb-10">
+                            {{showMore(text="عرض الكل")}}
+                        </div>
+                        {# cart section4 #}
+
+                        {# header section5 #}
+                        <div class=" mb-20">
+                            {{titleSection(text="المنتجات الأكثر مبيعاً")}}
+                        </div>
+                        {# header section5 #}
+                        {# cart section5 #}
+                        <div class=" mt-10">
+                            {{ProductCardswipper()}}
+
+                            <div class="my-10">
+                                {{showMore(text="عرض الكل")}}
+                            </div>
+                            {# cart section5 #}
+
+                            {#section 6  #}
+                            <div class=" mb-5">
+                                {{titleSection(text="صفقة اليوم")}}
+                            </div>
+                            <img class="rounded-md" src="/images/paymenthome.webp" >
+
+                            {#section 6  #}
+
+                            {# header section7 #}
+                            <div class=" mb-20">
+                                {{titleSection(text="العطور")}}
+                            </div>
+                            {# header section7 #}
+                            {# cart section7 #}
+                            <div class=" mt-10">
+                                {{ProductCardswipper()}}
+                                <div class="mt-20 mb-2">
+                                    {{showMore(text="عرض الكل")}}
+                                </div>
+                                {# cart section7 #}
+
+                                {#section 8  #}
+
+                                <img class="rounded-md" src="/images/title.webp" >
+
+                                {#section 8  #}
+
+                                {#section 9  #}
+                                <div class=" my-20">
+                                    {{titleSection(text="آراء عملائنا")}}
+                                </div>
+                                <div class="flex justify-center">
+                                    <div class= w-11/12>
+
+                                        {{opinionsswipper()}}
+                                    </div>
+                                </div>
+                                {#section 9 #}
+
+                                {# section10 #}
+                                <div class="flex justify-center mt-20">
+                                    <div class= w-11/12>
+                                        {% include "common/static/informations/index.njk" ignore missing %}
+                                    </div>
+                                </div>
+                                {# section10 #}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

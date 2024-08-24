@@ -1,0 +1,31 @@
+{% extends "layouts/layout.njk" %}
+{% from "common/components/swipper/index.njk" import Homeswipper,
+ProductCardswipper,
+opinionsswipper %}
+{% from "common/components/headers/index.njk" import titleSection %}
+{% from "common/components/cards/index.njk" import cardSection1,
+cardOptions %}
+{% from "common/components/operations/index.njk" import showMore %}
+
+{% block content %}
+    <div class="main-bg">
+
+        <div class="h-screen relative"></div>
+
+        <div class="flex justify-center">
+            <div class="w-10/12">
+                <div class=" grid grid-cols-3 gap-3">
+                    {{cardSection1(category="مجموعة العيد",image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=5)}}
+                    {{cardSection1(category="مجموعة العيد",image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+                    {{cardSection1(category="مجموعة العيد",image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+                    {{cardSection1(category="مجموعة العيد",image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+                    {{cardSection1(category="مجموعة العيد",image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+                    {{cardSection1(category="مجموعة العيد",image="/images/card1.webp", price="343.85", discount="67", priceBeforeDiscount="67", rating=4)}}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

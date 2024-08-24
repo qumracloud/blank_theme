@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block title %}Default Title{% endblock %}
+        </title>
+        {{ head | safe }}
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Almarai&amp;display=swap">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="/style.css" >
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        {# <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">         #}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{app.settings.font.sources}}">
+        <script src="http://127.0.0.1:5500/dist/qumra-gearbox.js" ></script>
+
+        <style>
+            body {
+              font-family: "{{app.settings.font.title}}";
+              
+            }
+            :root {
+             --mainColor: {{app.settings.mainColor}};
+             --subColor: {{app.settings.subColor}};
+             --backgroundColor: {{app.settings.backgroundColor}};
+             --pink: #fbdddd;
+             --reddiscount: #f55157;
+             --gray: #f7f7f7
+              }
+            </style>
+    </head>
+    
+
+    <body style="background-color: white;overflow-x: hidden" dir="rtl">
+
+        {% include "common/header.njk" ignore missing %}
+        {% block content %}{% endblock %}
+        {% include "common/footer.njk" ignore missing %}
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="/app.js"></script>
+
+        {{ footer_scripts | safe }}
+        <script>
+            console.log({
+                app: {{app | dump | safe }},
+                page: {{page | dump | safe }},
+                context: {{context | dump | safe }},
+            });
+        </script>
+    </body>
+</html>

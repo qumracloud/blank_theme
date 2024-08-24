@@ -1,0 +1,10 @@
+{%macro showMore(text="")%}
+<div class="text-center">
+           <div class="flex item-center justify-center gap-4 transition-all duration-300 group-next cursor-pointer">
+            {{text}}
+            <div class=' w-max transition-all duration-300 next-arrow rounded-full flex item-center justify-center p-2'>
+              <i class="fa-solid fa-arrow-left text-brown"></i>
+            </div>
+           </div>
+     </div> 
+{%endmacro%}

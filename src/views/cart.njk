@@ -1,0 +1,138 @@
+{% extends "layouts/layout.njk" %}
+{% from "common/components/swipper/index.njk" import Homeswipper, ProductCardswipper, opinionsswipper %}
+{% from "common/components/headers/index.njk" import titleSection %}
+{% from "common/components/cards/index.njk" import cardSection1, cardOptions %}
+{% from "common/components/operations/index.njk" import showMore %}
+
+{% block content %}
+<div class="main-bg pb-40">
+    <div class="flex justify-center">
+        <div class="lg:w-10/12 w-11/12">
+            <div class="mt-20 mb-10">
+                <a class="text-sm text-brown">الرئيسية</a>
+                <i class="fa-solid fa-chevron-left text-sm text-brown"></i>
+                <a class="text-sm text-brown">عطورنا</a>
+            </div>
+            <div class="flex flex-col lg:flex-row gap-4">
+                <div class="bg-white border lg:w-8/12 p-4 h-max" id="elemantsInCart">
+                    <!-- Cart items will be inserted here dynamically -->
+                </div>
+
+                <div></div>
+
+                <div class="bg-white rounded-md p-4 flex-1 shadow-lg h-max">
+                    <div class="font-semibold">ملخص الطلب</div>
+                    <div class="flex justify-between py-5 border-b">
+                        <div class="text-gray-500">مجموع المنتجات</div>
+                        <div class="text-brown" id="total-count">0 SAR</div>
+                    </div>
+                    <div>
+                        <div class="mt-5">هل لديك كود خصم</div>
+                        <div class="flex py-4 border-b">
+                            <input class="outline-none border flex-1" type="text">
+                            <button class="p-2 text-white bg-brown">اضافة</button>
+                        </div>
+                        <div class="flex justify-between py-5">
+                            <div class="text-gray-500 text-lg">مجموع المنتجات</div>
+                            <div class="text-brown" id="total-count">0 SAR</div>
+                        </div>
+                        <div class="text-xs text-gray-400">* الأسعار شاملة للضريبة</div>
+                    </div>
+                    <div class="my-3">
+                        <button class="w-full p-3 text-white bg-brown">اتمام الطلب</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function GetElement() {
+        let getElementsInCart = localStorage.getItem('cart');
+        getElementsInCart = JSON.parse(getElementsInCart) || [];
+        
+        let PutElmentS = document.getElementById('elemantsInCart');
+        PutElmentS.innerHTML = '';
+        
+        if (getElementsInCart.length === 0) {
+            PutElmentS.innerHTML = '<p>سلة التسوق فارغة</p>';
+            document.getElementById('total-count').textContent = '0 SAR';
+            return;
+        }
+        
+        let total = 0;
+        
+        getElementsInCart.forEach(item => {
+            let itemDiv = document.createElement('div');
+            itemDiv.className = 'flex lg:flex-row flex-col gap-4 my-4 relative';
+            
+            let imgDiv = document.createElement('div');
+            imgDiv.className = 'flex w-7/12 gap-2';
+            imgDiv.innerHTML = `
+                <img class="w-20 h-20 rounded-md" src="${item.image || '/images/cardtest1.jpg'}" alt="${item.category}">
+                <div>
+                    <div class="font-semibold lg:text-lg">${item.category}</div>
+                    <div class="text-gray-400">${item.price}</div>
+                </div>
+                <div class="absolute top-0 left-0">
+                    <i class="fa-solid fa-circle-xmark text-red-500 text-2xl" onclick="removeItem('${item.id}')"></i>
+                </div>
+            `;
+            
+            let controlsDiv = document.createElement('div');
+            controlsDiv.className = 'flex justify-evenly lg:w-5/12 w-full border-b border-t py-2 md:py-0 md:border-0';
+            controlsDiv.innerHTML = `
+                <div class="border flex items-center border h-10 p-2">
+                    <i class="fa-solid fa-plus cursor-pointer" onclick="changeQuantity('${item.id}', 1)"></i>
+                    <input type="number" min="1" value="${item.quantity || 1}" class="custom-radio outline-none bg-transparent w-10 text-center" onchange="updateQuantity('${item.id}', this.value)">
+                    <i class="fa-solid fa-minus cursor-pointer" onclick="changeQuantity('${item.id}', -1)"></i>
+                </div>
+                <div>المجموع: ${Math.floor(item.price * (item.quantity || 1))} SAR</div>
+            `;
+            
+            itemDiv.appendChild(imgDiv);
+            itemDiv.appendChild(controlsDiv);
+            PutElmentS.appendChild(itemDiv);
+            
+            total += item.price * (item.quantity || 1);
+        });
+        
+        document.getElementById('total-count').textContent = `${Math.floor(total)} SAR`;
+    }
+    
+    function changeQuantity(itemId, change) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.map(item => {
+            if (item.id === itemId) {
+                item.quantity = Math.max(1, (item.quantity || 1) + change);
+            }
+            return item;
+        });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        GetElement();
+    }
+    
+    function updateQuantity(itemId, quantity) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.map(item => {
+            if (item.id === itemId) {
+                item.quantity = Math.max(1, quantity);
+            }
+            return item;
+        });
+        localStorage.setItem('cart', JSON.stringify(cart));
+        GetElement();
+    }
+    
+    function removeItem(itemId) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cart = cart.filter(item => item.id !== itemId);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        GetElement();
+        updateCartCount()
+    }
+    
+    GetElement();
+</script>
+{% endblock %}

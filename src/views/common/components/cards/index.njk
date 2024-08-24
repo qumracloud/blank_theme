@@ -1,0 +1,101 @@
+{# card  products #}
+{% macro cardSection1(category="",image="/images/card1.webp", price="", discount="", priceBeforeDiscount="", rating=0,image="") %}
+
+   <div class="border border-pink rounded-md group relative ">
+       <div class="p-5 relative">
+        <a href="/products">
+            <img src="{{image}}" class="w-full h-auto">
+        </a>
+        <div class="flex justify-between h-8 gap-4 absolute inset-x-0 bottom-4 transform translate-y-[10px] md:translate-y-[10px] md:top-3/4 md:left-1/2 md:-translate-x-1/2">            
+            <span class="border border-gray rounded-full flex items-center justify-center p-2 bg-brown cursor-pointer">
+                <i class="fa-solid fa-plus text-white" 
+                onclick="addToCart('{{ category }}', '{{ price }}', '{{ discount }}', '{{ priceBeforeDiscount }}','{{image}}')"></i>
+            </span>
+            <a href="/product">
+                <span class="border border-gray rounded-full flex items-center justify-center p-2 bg-white">
+                    <i class="fa-regular fa-eye"></i>
+                </span>
+            </a>
+            <span class="border border-gray rounded-full flex items-center justify-center p-2">
+                <i class="fa-regular fa-heart"></i>
+            </span>
+        </div>
+       </div>
+       <a href="/products">
+           <div class="flex flex-col gap-2 pb-4">
+               <div class="flex justify-center gap-1">
+                   {% for i in range(1, 7) %}
+                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" fill="{{ '#fbbf24'}}" width="15" height="15" viewBox="0 0 30 32">
+                       <title>star2</title>
+                       <path d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z"></path>
+                   </svg>
+                   {% endfor %}
+               </div>
+               <div class="text-center">{{ category }}</div>
+               <div class="text-center">{{ priceBeforeDiscount }} ر.س</div>
+               <div class="text-center">
+                   <span class="text-gray-500 line-through">{{ price }}</span>
+                   <span class="text-redDiscount text-center font-bold">خصم {{ discount }}%</span>
+               </div>
+           </div>
+       </a>
+   </div>
+
+   <script>
+
+     function addToCart(category, price, discount, priceBeforeDiscount, image) {
+         let item = {
+             id: Math.random().toString(36).substr(2, 9),
+            number:1,
+             image: image,
+             category: category,
+             price: price,
+             discount: discount,
+             priceBeforeDiscount: priceBeforeDiscount
+         };
+
+         let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+         cart.push(item);
+
+         localStorage.setItem('cart', JSON.stringify(cart));
+
+         alert('Item added to cart');
+    updateCartCount();
+
+     }
+   </script>
+{% endmacro %}
+
+{# card products #}
+
+{# opinions card #}
+{% macro cardOptions(userName="", discription="",place="", rating=0,image="/images/person.webp") %}
+<div class="bg-gray border border-gray-200 rounded-md min-h-80 px-6">
+    <div class="flex justify-center p-4 ">
+    
+       {% for i in range(1, 7) %}
+         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" fill="{{ '#fbbf24'}}" width="15" height="15" viewBox="0 0 30 32">
+                            <title>star2</title>
+                            <path d="M29.714 11.839c0 0.321-0.232 0.625-0.464 0.857l-6.482 6.321 1.536 8.929c0.018 0.125 0.018 0.232 0.018 0.357 0 0.464-0.214 0.893-0.732 0.893-0.25 0-0.5-0.089-0.714-0.214l-8.018-4.214-8.018 4.214c-0.232 0.125-0.464 0.214-0.714 0.214-0.518 0-0.75-0.429-0.75-0.893 0-0.125 0.018-0.232 0.036-0.357l1.536-8.929-6.5-6.321c-0.214-0.232-0.446-0.536-0.446-0.857 0-0.536 0.554-0.75 1-0.821l8.964-1.304 4.018-8.125c0.161-0.339 0.464-0.732 0.875-0.732s0.714 0.393 0.875 0.732l4.018 8.125 8.964 1.304c0.429 0.071 1 0.286 1 0.821z"></path>
+                        </svg>
+            {% endfor %}
+    </div>
+    <div class=" text-center">
+{{discription}}
+    </div>
+
+<div class="flex justify-center my-4">
+    <img class="rounded-full h-10 w-10" src="{{image}}" style="width:40px;height:40px"></div>
+<div class="flex gap-3 justify-center">
+    <span class="font-bold">
+        {{userName}}
+    </span>
+    .
+    <span class="text-gray-500">
+     {{place}}
+    <span>
+</div>
+</div>
+{% endmacro %}
+{# opinions card #}

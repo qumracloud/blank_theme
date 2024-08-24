@@ -1,0 +1,240 @@
+<!-- header -->
+<style>
+    /* Hide dropdown by default */
+    .dropdown-content {
+        display: none;
+    }
+    .menu .menu-item:hover .subMenu {
+        display: block;
+    }
+</style>
+<div id="header" class="flex justify-center fixed top-0 w-full z-9999 transition-all duration-300 bg-brown">
+    <div class="lg:w-10/12 w-11/12 flex justify-between items-center p-4">
+        <div>
+            <img class="w-40 h-10 hidden lg:block object-contain" src="{{app.logoUrl}}" alt="Logo">
+            <div class="lg:hidden ">
+
+                <i id="open-sideBar" class="fa-solid fa-bars-staggered text-white text-2xl cursor-pointer "></i>
+            </div>
+        </div>
+        <div class="flex justify-between gap-4 items-center hidden lg:flex" >
+
+            {% for category in context.categories %}
+                <div class="relative group ">
+                    {% if category.subCategories.length == 0 %}
+
+                        <a href="/products/category/{{ category.slug }}" class="text-white mx-2 hover:underline transition-all duration-300 font-semibold">
+                            {{ category.title }}
+                        </a>
+                    {% else %}
+
+                        <div class="relative group menu">
+                            <div class='menu-item relative'>
+                                <a href="/products/category/{{ category.slug }}" class="text-white mx-2 hover:underline transition-all duration-300 font-semibold">
+                                    {{ category.title }}
+                                </a>
+                                <div id="{{ category._id }}" class="bg-brown dropdown-content absolute left-3 bg-white rounded shadow-lg subMenu hidden">
+                                    {% for subCategory in category.subCategories %}
+                                        <div class="min-w-28 p-2">
+                                            <a href="/products/category/{{ subCategory.slug }}" class="hover:bg-white inline-block p-2 rounded-md hover:bg-white w-full hover-text-brown text-white">{{ subCategory.title }}</a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+
+        </div>
+        <div class="flex justify-between items-center gap-6">
+            <div>
+
+                <i id="open-search" class="self-center fa-solid fa-magnifying-glass cursor-pointer" style="color: #ffffff;"></i>
+            </div>
+
+            <qumra-cart-button>
+                <i class="self-center fa-solid fa-bag-shopping cursor-pointer" style="color: #ffffff;"></i>
+            </qumra-cart-button>
+
+        </div>
+    </div>
+</div>
+<div id="scroll-btn"
+    class="z-9999 cursor-pointer fixed right-5 bg-brown rounded-full transition-all duration-300 w-8 h-8 flex justify-center items-center p-2"
+    style="top:90%">
+    <i class="fa-solid fa-arrow-up-long text-white"></i>
+</div>
+<div id="sideBar"
+    class="fixed sideBarProperty sideBar bg-brown h-screen z-999999999 md:w-7/12 w-full lg:hidden p-12 pl-4 transition-all duration-300">
+    <div class=" flex justify-end">
+        <i id="x-close-sideBar" class="fa-solid fa-x text-white cursor-pointer"></i>
+    </div>
+    <img class="w-48 h-14 object-contain" src="{{app.logoUrl}}" alt="Logo">
+    <div class=" flex flex-col gap-y-6 mt-8">
+
+        <div>
+            <a href="#"
+                class="text-white font-semibold text-xl py-2 transition-all duration-300 font-semibold">هداياكم</a>
+        </div>
+        <div>
+            <a href="#" class="text-white font-semibold text-xl py-2 transition-all duration-300 font-semibold">أدهان
+                العود</a>
+        </div>
+        <div>
+            <a href="#"
+                class="text-white font-semibold text-xl py-2 transition-all duration-300 font-semibold">العود</a>
+        </div>
+        <div>
+            <a href="#"
+                class="text-white font-semibold text-xl py-2 transition-all duration-300 font-semibold">العطور</a>
+        </div>
+        <div>
+            <a href="#" class="text-white font-semibold text-xl py-2 transition-all duration-300 font-semibold">نوادر
+                العود</a>
+        </div>
+        <div>
+            <a href="#" class="text-white font-semibold text-xl py-2 transition-all duration-300 font-semibold">اخترنا
+                لك</a>
+        </div>
+        <div>
+            <a href="#" class="text-white font-semibold text-xl py-2 transition-all duration-300 font-semibold">الأكثر
+                مبيعاً</a>
+        </div>
+    </div>
+    <div class=" mt-28 flex justify-end">
+        <div class=" border border-white w-max px-14 ">
+            <i class="fa-solid fa-earth-americas text-white"></i>
+            <select class=" outline-none py-3 cursor-pointer bg-brown text-white">
+                <option>English</option>
+                <option>عربي</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+{# <div class=" absolute top-20 bg-green">
+    cvxcvxcvxcvxcvxcvxcvxcvxcvxcv
+</div> #}
+
+
+<div id="searchBar" class="searchBar hidden bg-white w-full fixed top-0 z-9999999999 p-4">
+    <div class="flex justify-end">
+        <i id="x-close-search" class="fa-solid fa-x hover:text-red-500 cursor-pointer w-10"></i>
+    </div>
+    <div class="flex flex-col item-center justify-center">
+        <div class="text-center text-xl">ما الذي تبحث عنه؟</div>
+        <div class="flex justify-center">
+            <div class="w-8/12 border-b flex py-4">
+                <form action="search" class="w-full flex" method="get" >
+                    <i class="fa-brands fa-searchengin text-2xl"></i>
+                    <input name="q" class="outline-none px-2 w-full" type="search" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+        function handleSearch(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const inputValue = document.getElementById('searchInput').value; // Get the input value
+        const searchUrl = `http://localhost:3000/?search=${encodeURIComponent(inputValue)}`; // Construct the URL
+
+        window.location.href = searchUrl; // Redirect to the URL
+    }
+
+    window.addEventListener('scroll', function () {
+        const header = document.getElementById('header');
+        const scrollBtn = document.getElementById('scroll-btn');
+        const urlPath = window.location.pathname;
+
+        if (window.scrollY > 100) {
+            header
+                .classList
+                .add('bg-brown');
+            scrollBtn
+                .classList
+                .remove('hidden');
+        } else {
+            if (urlPath === "/") {
+                header
+                    .classList
+                    .remove('bg-brown');
+            }
+            scrollBtn
+                .classList
+                .add('hidden');
+        }
+    });
+
+    document
+        .getElementById('x-close-sideBar')
+        .addEventListener('click', function () {
+            document
+                .getElementById('sideBar')
+                .classList
+                .add('sideBarProperty');
+        });
+
+    document
+        .getElementById('open-sideBar')
+        .addEventListener('click', function () {
+            document
+                .getElementById('sideBar')
+                .classList
+                .remove('sideBarProperty');
+        })
+
+    document
+        .getElementById('open-search')
+        .addEventListener('click', function () {
+            document
+                .getElementById('searchBar')
+                .classList
+                .remove('hidden');
+        });
+
+    document
+        .getElementById('x-close-search')
+        .addEventListener('click', function () {
+            document
+                .getElementById('searchBar')
+                .classList
+                .add('hidden');
+        });
+
+    document
+        .getElementById('scroll-btn')
+        .addEventListener('click', function () {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+    // function updateCartCount() {
+    //     const countCartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    //     const cartCountElement = document.querySelector('.item-inCart');
+    //     cartCountElement.textContent = countCartItems.length;
+    // }
+
+    {# updateCartCount(); #}
+    {# {
+        const dropdownButton = document.querySelector('.group');
+        const dropdownContent = document.querySelector('.dropdown-content');
+
+        dropdownButton.addEventListener('mouseenter', () => {
+            dropdownContent.style.display = 'block';
+        });
+
+        dropdownButton.addEventListener('mouseclose', () => {
+            dropdownContent.style.display = 'none';
+        });
+        function toggleSubCategories(id) {
+            const dropdown = document.getElementById(id);
+            dropdown
+                .classList
+                .toggle('hidden');
+        }
+        
+    } #}
+</script>
